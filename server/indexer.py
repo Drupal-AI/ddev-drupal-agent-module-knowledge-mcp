@@ -110,8 +110,12 @@ def collect_docs(version_dir):
 
 
 def data_synth(d):
-    """A compact searchable sentence synthesized from data.json metadata."""
-    bits = [d.get("name") or "", d.get("description") or ""]
+    """A compact searchable sentence synthesized from data.json metadata.
+
+    Includes the enriched `project_description` (the real Drupal.org project-page body)
+    when present — it is far richer search signal than the info.yml one-liner.
+    """
+    bits = [d.get("name") or "", d.get("description") or "", d.get("project_description") or ""]
     kw = d.get("keywords") or []
     cats = (d.get("categories") or []) + (d.get("subcategories") or [])
     if kw:
