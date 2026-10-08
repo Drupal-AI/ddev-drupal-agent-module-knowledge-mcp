@@ -16,7 +16,7 @@ post_install_actions:
   - |
     echo "Downloading agent module knowledge DB (~128 MB) ..."
     curl -fL --retry 3 \
-      https://github.com/ivanboring/ddev-drupal-agent-module-knowledge-mcp/releases/latest/download/docs.db.gz \
+      https://github.com/Drupal-AI/ddev-drupal-agent-module-knowledge-mcp/releases/latest/download/docs.db.gz \
       | gunzip > ${DDEV_APPROOT}/.ddev/agent-module-docs/docs.db
   - |
     echo ""

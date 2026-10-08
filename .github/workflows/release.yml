@@ -12,7 +12,7 @@ on:
 
 # Repo A (the corpus). Edit these two to your fork/owner.
 env:
-  CORPUS_OWNER: ivanboring
+  CORPUS_OWNER: Drupal-AI
   CORPUS_REPO: agent-module-documentation
   CORPUS_REF: ${{ github.event.inputs.corpus_ref || 'main' }}
 
@@ -71,7 +71,8 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ghcr.io/${{ github.repository }}
+          # GHCR image names must be lowercase (the org is "Drupal-AI").
+          images: ghcr.io/drupal-ai/ddev-drupal-agent-module-knowledge-mcp
           tags: |
             type=semver,pattern={{version}}
             type=raw,value=latest,enable=${{ startsWith(github.ref, 'refs/tags/') }}

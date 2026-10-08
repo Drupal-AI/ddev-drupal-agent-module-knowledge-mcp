@@ -6,7 +6,7 @@ connects over HTTP and gets **hybrid search** (lexical BM25 + semantic) plus com
 docs - so an agent can understand and operate a module without reading its source.
 
 The knowledge base and its build method live in the companion repo
-**`agent-module-documentation`** (see its `mcp/DESIGN.md` for the full architecture).
+**[`agent-module-documentation`](https://github.com/Drupal-AI/agent-module-documentation)** (see its `mcp/DESIGN.md` for the full architecture).
 
 ## What it installs
 
@@ -20,7 +20,7 @@ Tools exposed: `search_modules`, `get_module`, `list_docs`, `read_doc`, `list_ca
 ## Install
 
 ```bash
-ddev add-on get ivanboring/ddev-drupal-agent-module-knowledge-mcp
+ddev add-on get Drupal-AI/ddev-drupal-agent-module-knowledge-mcp
 ddev restart
 ```
 

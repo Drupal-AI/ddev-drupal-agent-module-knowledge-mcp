@@ -5,7 +5,7 @@ services:
   agent-module-docs:
     container_name: ddev-${DDEV_SITENAME}-agent-module-docs
     # Prebuilt public image. Pin to a release tag instead of :latest for reproducibility.
-    image: ghcr.io/ivanboring/ddev-drupal-agent-module-knowledge-mcp:latest
+    image: ghcr.io/drupal-ai/ddev-drupal-agent-module-knowledge-mcp:latest
     restart: "no"
     labels:
       com.ddev.site-name: ${DDEV_SITENAME}
