@@ -11,8 +11,8 @@ The knowledge base and its build method live in the companion repo
 ## What it installs
 
 - A small HTTP **MCP service** in a container, exposed through the DDEV router at
-  `https://<project>.ddev.site:9131/mcp`.
-- A prebuilt search database (`docs.db`, ~128 MB gzipped) downloaded from this repo's latest
+  `http://<project>.ddev.site:9130/mcp` (and `https://…:9131/mcp`).
+- A prebuilt search database (`docs.db`, ~200 MB gzipped) downloaded from this repo's latest
   **GitHub Release** — no indexing or model download on your machine.
 
 Tools exposed: `search_modules`, `get_module`, `list_docs`, `read_doc`, `list_categories`.
@@ -28,16 +28,33 @@ Then register it with your AI client (runs on the host):
 
 ```bash
 # Claude Code
-claude mcp add --transport http agent-module-docs https://<project>.ddev.site:9131/mcp
+claude mcp add --transport http agent-module-docs http://<project>.ddev.site:9130/mcp
 ```
 
 ```jsonc
 // Claude Desktop — claude_desktop_config.json
 { "mcpServers": { "agent-module-docs": {
     "transport": "http",
-    "url": "https://<project>.ddev.site:9131/mcp"
+    "url": "http://<project>.ddev.site:9130/mcp"
 } } }
 ```
+
+### Why plain HTTP on 9130?
+
+DDEV's HTTPS uses a local mkcert certificate authority. Browsers and `curl` trust it, but
+Node-based clients such as Claude Code do not, so `https://…:9131/mcp` fails from the host with
+`UNABLE_TO_VERIFY_LEAF_SIGNATURE` even though the server is up. The HTTP endpoint only travels
+over your machine's loopback to the DDEV router, so it avoids the problem.
+
+To use HTTPS instead, point Node at the mkcert root CA when starting your client:
+
+```bash
+NODE_EXTRA_CA_CERTS="$(mkcert -CAROOT)/rootCA.pem" claude
+```
+
+A plain `curl https://<project>.ddev.site:9131/mcp` answering
+`Not Acceptable: Client must accept text/event-stream` is normal: it means the server is
+reachable, just not spoken to as an MCP client.
 
 ## Layout
 

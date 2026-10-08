@@ -1,6 +1,6 @@
 #ddev-generated
 # Agent module knowledge MCP — HTTP service exposed through the DDEV router.
-# Endpoint (default): https://<project>.ddev.site:9131/mcp
+# Endpoint: http://<project>.ddev.site:9130/mcp (recommended for host clients) or https://…:9131/mcp
 services:
   agent-module-docs:
     container_name: ddev-${DDEV_SITENAME}-agent-module-docs

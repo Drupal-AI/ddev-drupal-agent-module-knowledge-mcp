@@ -23,11 +23,14 @@ post_install_actions:
     echo "✓ Installed. Start/refresh with: ddev restart"
     echo ""
     echo "Register the MCP server with your AI client (host):"
-    echo "  claude mcp add --transport http agent-module-docs https://${DDEV_HOSTNAME}:9131/mcp"
+    echo "  claude mcp add --transport http agent-module-docs http://${DDEV_HOSTNAME}:9130/mcp"
     echo ""
     echo "Claude Desktop (claude_desktop_config.json):"
     echo '  { "mcpServers": { "agent-module-docs": {'
-    echo "      \"transport\": \"http\", \"url\": \"https://${DDEV_HOSTNAME}:9131/mcp\" } } }"
+    echo "      \"transport\": \"http\", \"url\": \"http://${DDEV_HOSTNAME}:9130/mcp\" } } }"
+    echo ""
+    echo "(Plain HTTP on 9130 avoids Node rejecting DDEV's local certificate. For HTTPS on 9131,"
+    echo " start your client with NODE_EXTRA_CA_CERTS=\"\$(mkcert -CAROOT)/rootCA.pem\".)"
 
 removal_actions:
   - rm -rf ${DDEV_APPROOT}/.ddev/agent-module-docs
